@@ -45,12 +45,12 @@ async function playSong(guildId) {
     connection.subscribe(player);
 
     player.on(AudioPlayerStatus.Idle, () => {
-        queue.shift(); // Remove the played song
-        playSong(guildId); // Play the next song
+        queue.shift(); 
+        playSong(guildId); 
     }).on('error', error => {
         console.error(error);
-        queue.shift(); // Attempt to skip the problematic song
-        playSong(guildId); // Play the next song
+        queue.shift(); 
+        playSong(guildId); 
     });
 
     queues.get(guildId)[0].textChannel.send(`Now playing: ${song.title}`);
