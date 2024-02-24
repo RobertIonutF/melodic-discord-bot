@@ -85,43 +85,6 @@ client.on('interactionCreate', async interaction => {
             playSong(interaction.guildId);
         }
     }
-    
-    if (interaction.commandName === 'pause') {
-        const connection = getVoiceConnection(interaction.guildId);
-        if (connection) {
-            connection.audioPlayer.pause();
-        }
-    }
-
-    if (interaction.commandName === 'stop') {
-        const connection = getVoiceConnection(interaction.guildId);
-        if (connection) {
-            connection.destroy();
-        }
-    }
-
-    if (interaction.commandName === 'skip') {
-        const connection = getVoiceConnection(interaction.guildId);
-        if (connection) {
-            connection.audioPlayer.stop();
-        }
-    }
-
-    if (interaction.commandName === 'queue') {
-        const queue = queues.get(interaction.guildId);
-        if (!queue || queue.length === 0) {
-            return interaction.reply('The queue is empty!');
-        }
-        const queueList = queue.map((song, index) => `${index + 1}. ${song.title}`).join('\n');
-        interaction.reply(`Queue:\n${queueList}`);
-    }
-
-    if (interaction.commandName === 'leave') {
-        const connection = getVoiceConnection(interaction.guildId);
-        if (connection) {
-            connection.destroy();
-        }
-    }
 });
 
 client.login(process.env.BOT_TOKEN);

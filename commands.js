@@ -15,23 +15,7 @@ const commands = [
                 required: true,
             },
         ],
-    },
-    {
-        name: 'pause',
-        description: 'Pause the song',
-    },
-    {
-        name: 'stop',
-        description: 'Stop the song',
-    },
-    {
-        name: 'skip',
-        description: 'Skip the song',
-    },
-    {
-        name: 'queue',
-        description: 'Show the queue',
-    },
+    }
 ];
 
 const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
