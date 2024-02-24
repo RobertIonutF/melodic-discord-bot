@@ -11,7 +11,7 @@ const client = new Client({
     ],
 });
 
-const queues = new Map(); // Guild ID mapped to its queue (array of song objects)
+const queues = new Map(); 
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -53,7 +53,7 @@ async function playSong(guildId) {
         playSong(guildId); 
     });
 
-    queues.get(guildId)[0].textChannel.send(`Now playing: ${song.title}`);
+    queues.get(guildId)[0].textChannel.send(`🎶 Now playing: ${song.title}`);
 }
 
 client.on('interactionCreate', async interaction => {
