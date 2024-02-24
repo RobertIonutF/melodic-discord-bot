@@ -4,7 +4,6 @@ const ytdl = require('ytdl-core');
 const { registerCommands } = require('./commands');
 require('dotenv').config();
 
-
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
