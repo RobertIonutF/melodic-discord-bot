@@ -1,3 +1,7 @@
+/**
+ * @file Melodic Discord Bot
+ * @description A Discord bot for playing music in voice channels.
+ */
 const { Client, GatewayIntentBits} = require('discord.js');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus } = require('@discordjs/voice');
 const ytdl = require('ytdl-core'); 
@@ -20,15 +24,20 @@ client.once('ready', () => {
     }).catch(console.error);
 });
 
+/**
+ * Plays a song in the specified guild.
+ * @param {string} guildId - The ID of the guild.
+ * @returns {void}
+ */
 async function playSong(guildId) {
     const queue = queues.get(guildId);
     if (!queue || queue.length === 0) {
-        getVoiceConnection(guildId)?.disconnect(); // Disconnect if the queue is empty
+        getVoiceConnection(guildId)?.disconnect(); 
         queues.delete(guildId);
         return;
     }
 
-    const song = queue[0]; // Get the first song in the queue
+    const song = queue[0]; 
 
     const stream = ytdl(song.url, { filter: 'audioonly' });
     const resource = createAudioResource(stream);

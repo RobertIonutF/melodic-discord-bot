@@ -1,4 +1,3 @@
-// commands.js
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 require('dotenv').config();
@@ -20,6 +19,12 @@ const commands = [
 
 const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
 
+/**
+ * Registers the commands for a Discord bot application.
+ * @param {string} clientId - The ID of the Discord bot application.
+ * @param {string} guildId - The ID of the guild where the commands will be registered.
+ * @returns {Promise<void>} - A promise that resolves when the commands are successfully registered.
+ */
 const registerCommands = async (clientId, guildId) => {
     try {
         console.log('Started refreshing application (/) commands.');
