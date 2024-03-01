@@ -14,6 +14,26 @@ const commands = [
                 required: true,
             },
         ],
+    },
+    {
+        name: 'skip',
+        description: 'Skip the current song',
+    },
+    {
+        name: 'queue',
+        description: 'View the current queue',
+    },
+    {
+        name: 'stop',
+        description: 'Stop the bot',
+    },
+    {
+        name: 'help',
+        description: 'Help command',
+    },
+    {
+        name: 'health',
+        description: 'Health command',  
     }
 ];
 

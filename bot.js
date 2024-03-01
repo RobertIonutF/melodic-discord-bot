@@ -75,6 +75,10 @@ client.on('interactionCreate', async interaction => {
 
         const songUrl = interaction.options.getString('song');
 
+        if (!ytdl.validateURL(songUrl)) {
+            return interaction.reply('The URL you provided is not a valid YouTube link!');
+        }
+
         const song = {
             url: songUrl,
             title: songUrl, 
@@ -92,6 +96,60 @@ client.on('interactionCreate', async interaction => {
         if (queues.get(interaction.guildId).length === 1) {
             playSong(interaction.guildId);
         }
+    }
+
+    if (interaction.commandName === 'skip') {
+        if (!interaction.member.voice.channel) {
+            return interaction.reply('You need to be in a voice channel to skip music!');
+        }
+
+        const queue = queues.get(interaction.guildId);
+        if (!queue || queue.length === 0) {
+            return interaction.reply('There is no song to skip!');
+        }
+
+        queue.shift();
+        playSong(interaction.guildId);
+        interaction.reply('🎶 Skipping song...');
+    }
+
+    if (interaction.commandName === 'queue') {
+        const queue = queues.get(interaction.guildId);
+        if (!queue || queue.length === 0) {
+            return interaction.reply('There are no songs in the queue!');
+        }
+        
+        //say the current song and the next songs in the queue
+        let reply = '🎶 Current queue:\n';
+
+        reply += `1. ${queue[0].title} (Now playing)\n`;
+
+        reply += 'Up next:\n';
+        for (let i = 1; i < queue.length; i++) {
+            reply += `${i + 1}. ${queue[i].title}\n`;
+        }
+
+        interaction.reply(reply);
+    }
+
+    if (interaction.commandName === 'stop') {
+        if (!interaction.member.voice.channel) {
+            return interaction.reply('You need to be in a voice channel to stop music!');
+        }
+
+        const queue = queues.get(interaction.guildId);
+        if (!queue || queue.length === 0) {
+            return interaction.reply('There is no song to stop!');
+        }
+
+        queue.length = 0; 
+        getVoiceConnection(interaction.guildId)?.disconnect();
+        queues.delete(interaction.guildId);
+        interaction.reply('🎶 Stopping music...');
+    }
+
+    if (interaction.commandName === 'help') {
+        interaction.reply('🎶 Commands:\n/play: Play a song\n/skip: Skip the current song\n/queue: View the current queue\n/stop: Clears queue, stops music and leave the channel.\n/help: Help command\n/health: Health command');
     }
 });
 
