@@ -6,6 +6,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "start": "node bot.js"
+  },
   "dependencies": {
     "@discordjs/rest": "^2.2.0",
     "@discordjs/voice": "^0.16.1",
