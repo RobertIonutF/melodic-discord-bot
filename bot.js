@@ -32,7 +32,14 @@ client.once('ready', () => {
 async function playSong(guildId) {
     const queue = queues.get(guildId);
     if (!queue || queue.length === 0) {
-        getVoiceConnection(guildId)?.disconnect(); 
+        const voiceConnection = getVoiceConnection(guildId);
+        if (voiceConnection) {
+            const textChannel = queue?.[0]?.textChannel;
+            if (textChannel) {
+                await textChannel.send("🎶 No more to play, leaving the channel...");
+            }
+            voiceConnection.disconnect(); 
+        }
         queues.delete(guildId);
         return;
     }
